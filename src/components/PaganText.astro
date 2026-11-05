@@ -2,20 +2,25 @@
 // Text drawn with the game's PAGAN display font (gallows_font: axe-cut, bevelled capitals with a soot outline baked in),
 // straight from its glyph sheet: one sprite per letter, sized in em so it scales with font-size. The text itself is
 // the element's accessible name. Sheet + metrics: tools/build_fonts.py.
-import font from "../lib/gallows_font.json";
+// `hd`: the 4x sheet (tools/build_hd_title.py; only the title's letters) for text shown very large.
+import normal from "../lib/gallows_font.json";
+import title from "../lib/gallows_title.json";
 
 interface Props {
   text: string;
   tag?: "h1" | "h2" | "h3" | "span" | "p";
   class?: string;
+  hd?: boolean;
 }
-const { text, tag: Tag = "span", class: cls = "" } = Astro.props;
+const { text, tag: Tag = "span", class: cls = "", hd = false } = Astro.props;
+const font = hd ? title : normal;
 const base = import.meta.env.BASE_URL;
 const chars = font.chars as Record<string, number[]>;
 const L = font.line;
 const em = (px: number) => `${(px / L).toFixed(4)}em`;
 const glyphs = [...text].map((ch) => {
   const g = chars[ch] ?? chars["?"] ?? chars[" "];
+  if (!g) throw new Error(`PaganText: no glyph for "${ch}" in the ${hd ? "HD title" : "display"} sheet`);
   return { ch, x: g[0], y: g[1], adv: g[4] };
 });
 const words: (typeof glyphs)[] = [[]];
@@ -23,7 +28,7 @@ for (const g of glyphs) {
   if (g.ch === " ") words.push([]);
   else words[words.length - 1].push(g);
 }
-const sheet = `url(${base}fonts/gallows_font.png)`;
+const sheet = `url(${base}fonts/${hd ? "gallows_title" : "gallows_font"}.png)`;
 const size = `${em(font.w)} ${em(font.h)}`;
 const space = em(chars[" "]?.[4] ?? 20);
 ---

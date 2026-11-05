@@ -17,5 +17,6 @@ npm run check      # astro check (types)
   `.venv/bin/python tools/encode_clip.py <dir> <id> --from N --to N [--crop 1280:500:0:112]`
   (`python3 -m venv .venv && .venv/bin/pip install -r tools/requirements.txt`).
 - Fonts: the game's PAGAN `gallows` fonts. `npm run fonts` rebuilds `public/fonts/` and `src/lib/gallows_font.json`
-  from `../loose/assets/generated/fonts` (headings: the glyph sheet via `PaganText`; text: traced woff2). Commit the output.
+  from `../loose/assets/generated/fonts` (headings: the glyph sheet via `PaganText`; the hero title: a 4x render, `tools/build_hd_title.py`, needs the game
+  repo's `.venv` with PAGAN; text: traced woff2). Commit the output.
 - Stills: JPGs in `public/img/shots/` appear under the level list; `public/img/og.jpg` is the share image.

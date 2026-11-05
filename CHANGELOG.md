@@ -7,6 +7,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-11-05
+
+### Fixed
+
+- The hero title is sharp: it uses a 4x render of the PAGAN display font (`tools/build_hd_title.py`, same letterforms
+  and spacing as the game) instead of upscaling the game's 54 px glyphs.
+
 ## [0.2.0] - 2026-11-05
 
 ### Changed
