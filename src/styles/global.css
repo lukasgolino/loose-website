@@ -1,0 +1,195 @@
+/* LOOSE! site: the game's UI palette (scripts/ui/ui_theme.gd): soot, dark oak, iron, tarnished brass, blood red. */
+:root {
+  --soot: #120d0a;
+  --soot-2: #1b1511;
+  --panel: #29231f;
+  --oak: #54402e;
+  --oak-2: #33261c;
+  --iron: #999ea3;
+  --iron-lo: #4c5055;
+  --cream: #ebdec2;
+  --cream-dim: #bfb39b;
+  --muted: #8c8274;
+  --brass: #f5e6bd;
+  --brass-lo: #c79957;
+  --blood: #9e1f17;
+  --blood-hi: #a3291f;
+  --blood-lo: #6b140f;
+  --line: rgb(235 222 194 / 0.12);
+  --display: "Cinzel", "Times New Roman", serif;
+  --body: "Alegreya Sans", system-ui, sans-serif;
+  --wrap: 1200px;
+  --gutter: clamp(16px, 4vw, 40px);
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--soot);
+  color: var(--cream);
+  font: 400 19px/1.55 var(--body);
+  overflow-x: hidden;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--brass-lo);
+}
+
+a:hover {
+  color: var(--brass);
+}
+
+::selection {
+  background: var(--blood);
+  color: var(--cream);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--display);
+  font-weight: 900;
+  line-height: 1.05;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+h2 {
+  font-size: clamp(2rem, 4.6vw, 3.4rem);
+  background: linear-gradient(var(--brass), var(--brass-lo));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 3px 0 rgb(0 0 0 / 0.6));
+}
+
+h3 {
+  font-size: 1.45rem;
+  color: var(--brass);
+}
+
+p {
+  margin: 0;
+}
+
+.wrap {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+section {
+  padding: clamp(72px, 10vw, 128px) 0;
+  position: relative;
+}
+
+.lede {
+  max-width: 62ch;
+  color: var(--cream-dim);
+  font-size: 1.15rem;
+  margin-top: 18px;
+}
+
+/* A small label over a heading: a torn banner strip. */
+.ribbon {
+  display: inline-block;
+  font: 700 0.85rem/1 var(--display);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--cream);
+  background: linear-gradient(var(--blood-hi), var(--blood-lo));
+  padding: 8px 16px 7px;
+  margin-bottom: 18px;
+  clip-path: polygon(0 0, 100% 0, 97% 50%, 100% 100%, 0 100%, 3% 50%);
+}
+
+/* An oak board in an iron frame: the game's panel. */
+.board {
+  background:
+    repeating-linear-gradient(90deg, rgb(0 0 0 / 0) 0 118px, rgb(0 0 0 / 0.35) 118px 120px),
+    linear-gradient(var(--oak), var(--oak-2));
+  border: 3px solid var(--iron-lo);
+  box-shadow:
+    inset 0 0 0 2px rgb(0 0 0 / 0.45),
+    0 0 0 3px var(--soot),
+    8px 10px 0 3px rgb(0 0 0 / 0.4);
+}
+
+/* Blade buttons: dark oak, blood red when hot. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font: 900 1.05rem/1 var(--display);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cream);
+  text-decoration: none;
+  padding: 18px 30px 16px;
+  background: linear-gradient(var(--oak), var(--oak-2));
+  border: 2px solid var(--iron-lo);
+  clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  transition: background 0.15s;
+}
+
+a.btn:hover,
+.btn.primary {
+  background: linear-gradient(var(--blood-hi), var(--blood-lo));
+  border-color: var(--brass-lo);
+  color: var(--cream);
+}
+
+.btn[aria-disabled="true"] {
+  cursor: default;
+}
+
+/* The game's callouts: Cinzel capitals, brass with a soot outline. */
+.call {
+  font: 900 1.1rem/1 var(--display);
+  letter-spacing: 0.06em;
+  color: var(--brass);
+  -webkit-text-stroke: 1px var(--soot);
+  text-shadow: 0 2px 0 var(--soot);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.6s ease var(--d, 0ms),
+    transform 0.6s ease var(--d, 0ms);
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

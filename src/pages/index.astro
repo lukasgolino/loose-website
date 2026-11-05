@@ -1,0 +1,502 @@
+---
+import fs from "node:fs";
+import Base from "../layouts/Base.astro";
+import { ARROWS, CLIPS, HERO_CLIP, KILN_URL, LEVELS, PAGAN_URL, SEGAN_URL, STEAM_URL } from "../lib/data";
+
+const base = import.meta.env.BASE_URL;
+const has = (id: string) => fs.existsSync(`public/video/${id}.mp4`);
+const clips = CLIPS.filter((c) => has(c.id));
+const hero = has(HERO_CLIP);
+const shots = fs.existsSync("public/img/shots")
+  ? fs.readdirSync("public/img/shots").filter((f) => f.endsWith(".jpg")).sort()
+  : [];
+---
+
+<Base
+  title="LOOSE! You are the arrow."
+  description="A comedic medieval siege game where you are the arrow. Fly yourself into the enemy: eye shots, kill cams, ragdolls, powder kegs and chain reactions. Coming soon to Steam."
+>
+  <header class="hero">
+    {
+      hero && (
+        <video class="hero-bg" muted loop playsinline preload="none" data-lazy poster={`${base}video/${HERO_CLIP}.jpg`}>
+          <source data-src={`${base}video/${HERO_CLIP}.webm`} type="video/webm" />
+          <source data-src={`${base}video/${HERO_CLIP}.mp4`} type="video/mp4" />
+        </video>
+      )
+    }
+    <div class="hero-shade"></div>
+    <nav class="nav wrap" aria-label="Main">
+      <a class="brand" href={base}>LOOSE!</a>
+      <div class="links">
+        <a href="#moments">Moments</a>
+        <a href="#arrows">Arrows</a>
+        <a href="#siege">The siege</a>
+      </div>
+    </nav>
+    <div class="hero-inner wrap">
+      <p class="ribbon">A siege game</p>
+      <h1>LOOSE!</h1>
+      <p class="tag">You are the arrow.</p>
+      <p class="lede">
+        A goofy medieval army is besieging your castle. An archer on the wall looses you and you fly yourself in: dive for
+        speed, pull up, thread the banners and put yourself through a soldier's eye. Or cut the rope on their trebuchet and
+        watch it flatten its own crew.
+      </p>
+      <div class="ctas">
+        {
+          STEAM_URL ? (
+            <a class="btn primary" href={STEAM_URL}>Wishlist on Steam</a>
+          ) : (
+            <span class="btn primary" aria-disabled="true">Coming soon to Steam</span>
+          )
+        }
+        <a class="btn" href="#moments">See it fly</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="pillars">
+      <div class="wrap grid3">
+        <article class="reveal">
+          <p class="num">I</p>
+          <h3>Flying feels good</h3>
+          <p>Momentum, speed from the dive, a stall when you climb too long. Steer with the mouse or a stick, slow time with focus.</p>
+        </article>
+        <article class="reveal" style="--d:100ms">
+          <p class="num">II</p>
+          <h3>Hits are a show</h3>
+          <p>Lock on and the kill cam drops the world to a crawl. Helmets ring, shields fly off, men ragdoll into their friends.</p>
+        </article>
+        <article class="reveal" style="--d:200ms">
+          <p class="num">III</p>
+          <h3>The world reacts</h3>
+          <p>Kegs, hay, oil, bells, drawbridges, beehives, siege engines. One reaction is enough. Chains are the jackpot.</p>
+        </article>
+      </div>
+    </section>
+
+    {
+      clips.length > 0 && (
+        <section id="moments" class="moments">
+          <div class="wrap">
+            <span class="ribbon">Moments</span>
+            <h2>Every shot a story</h2>
+            <p class="lede">Real footage from the game. The soldiers are very committed and not very good at moving.</p>
+            <div class="clip-grid">
+              {clips.map((c, i) => (
+                <article class="clip reveal" style={`--d:${(i % 2) * 120}ms`}>
+                  <div class="frame">
+                    <video muted loop playsinline preload="none" data-lazy poster={`${base}video/${c.id}.jpg`}>
+                      <source data-src={`${base}video/${c.id}.webm`} type="video/webm" />
+                      <source data-src={`${base}video/${c.id}.mp4`} type="video/mp4" />
+                    </video>
+                    <span class="call">{c.call}</span>
+                  </div>
+                  <h3>{c.title}</h3>
+                  <p>{c.blurb}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    <section id="arrows" class="arrows">
+      <div class="wrap">
+        <span class="ribbon">The quiver</span>
+        <h2>Five arrows, one wall</h2>
+        <p class="lede">Each archer on the wall carries one kind. Win levels to arm more of them.</p>
+        <ul class="arrow-list">
+          {
+            ARROWS.map((a, i) => (
+              <li class="board reveal" style={`--d:${i * 70}ms`}>
+                <span class={`swatch ${a.id}`} aria-hidden="true"></span>
+                <h3>{a.name}</h3>
+                <p>{a.text}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <section id="siege" class="siege">
+      <div class="wrap">
+        <span class="ribbon">The siege</span>
+        <h2>Eight levels and an endless siege</h2>
+        <p class="lede">
+          Each one adds a new trick: shieldbearers, ladder crews, a covered ram, trebuchets, a siege tower, night, snow,
+          and finally the General. Then Endless Siege: they just keep coming. A Training Yard of straw volunteers comes first.
+        </p>
+        <ol class="levels">
+          {
+            LEVELS.map((l, i) => (
+              <li class="reveal" style={`--d:${(i % 4) * 70}ms`}>
+                <span class="roman">{l.n}</span>
+                <div>
+                  <h3>{l.title}</h3>
+                  <p>{l.idea}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+        {
+          shots.length > 0 && (
+            <div class="shots">
+              {shots.map((s) => (
+                <img class="reveal" src={`${base}img/shots/${s}`} alt="" loading="lazy" width="1280" height="720" />
+              ))}
+            </div>
+          )
+        }
+      </div>
+    </section>
+
+    <section class="made">
+      <div class="wrap">
+        <span class="ribbon">Made with our own tools</span>
+        <h2>Built from text</h2>
+        <p class="lede">
+          The soldiers, horses, siege engines, world and effects are modelled in <a href={KILN_URL}>KILN</a>, the score and
+          every sound are written in <a href={SEGAN_URL}>SEGAN</a>, and the fonts and UI art are drawn in
+          <a href={PAGAN_URL}>PAGAN</a>. All of it from source files, all of it in Godot.
+        </p>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="wrap final-inner">
+        <h2>Ready. Draw. Loose!</h2>
+        <p class="lede">LOOSE! is coming soon to Steam for PC.</p>
+        <div class="ctas">
+          {
+            STEAM_URL ? (
+              <a class="btn primary" href={STEAM_URL}>Wishlist on Steam</a>
+            ) : (
+              <span class="btn primary" aria-disabled="true">Coming soon to Steam</span>
+            )
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot-inner">
+      <span>(c) {new Date().getFullYear()} LOOSE!</span>
+      <span><a href="https://lukasgolino.com/projects.html">More projects</a></span>
+    </div>
+  </footer>
+</Base>
+
+<style>
+  /* Hero */
+  .hero {
+    position: relative;
+    min-height: min(100svh, 980px);
+    display: grid;
+    grid-template-rows: auto 1fr;
+    overflow: hidden;
+    background: var(--soot-2) center / cover no-repeat;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-shade {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgb(18 13 10 / 0.92) 0%, rgb(18 13 10 / 0.7) 42%, rgb(18 13 10 / 0.15) 75%),
+      linear-gradient(to bottom, rgb(18 13 10 / 0.6), transparent 22%, transparent 70%, var(--soot));
+  }
+
+  .nav {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding-top: 22px;
+    padding-bottom: 22px;
+  }
+
+  .brand {
+    font: 900 1.6rem/1 var(--display);
+    color: var(--brass);
+    text-decoration: none;
+  }
+
+  .links {
+    display: flex;
+    gap: clamp(14px, 3vw, 32px);
+  }
+
+  .links a {
+    font: 700 0.85rem/1 var(--display);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+  }
+
+  .links a:hover {
+    color: var(--brass);
+  }
+
+  .hero-inner {
+    position: relative;
+    align-self: center;
+    width: 100%;
+    padding-bottom: 72px;
+  }
+
+  h1 {
+    font-size: clamp(4.5rem, 15vw, 11rem);
+    line-height: 0.9;
+    background: linear-gradient(#fff6dc, var(--brass) 40%, var(--brass-lo));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 6px 0 rgb(0 0 0 / 0.65));
+  }
+
+  .tag {
+    font: 900 clamp(1.4rem, 3.4vw, 2.3rem)/1.1 var(--display);
+    color: var(--cream);
+    margin-top: 10px;
+  }
+
+  .hero .lede {
+    color: var(--cream);
+    text-shadow: 0 1px 3px rgb(0 0 0 / 0.8);
+  }
+
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: 34px;
+  }
+
+  @media (max-width: 560px) {
+    .links a:not(:last-child) {
+      display: none;
+    }
+    .hero-shade {
+      background: linear-gradient(to bottom, rgb(18 13 10 / 0.75), rgb(18 13 10 / 0.6) 50%, var(--soot));
+    }
+  }
+
+  /* Pillars */
+  .grid3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 48px;
+  }
+
+  .grid3 article {
+    display: grid;
+    gap: 10px;
+    border-left: 4px solid var(--blood);
+    padding-left: 22px;
+  }
+
+  .grid3 p {
+    color: var(--cream-dim);
+  }
+
+  .num {
+    font: 900 0.95rem/1 var(--display);
+    color: var(--blood-hi);
+    letter-spacing: 0.2em;
+  }
+
+  /* Moments */
+  .moments {
+    background: linear-gradient(var(--soot), var(--soot-2) 20%, var(--soot-2) 80%, var(--soot));
+  }
+
+  .clip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr));
+    gap: 56px 40px;
+    margin-top: 56px;
+  }
+
+  .clip {
+    display: grid;
+    gap: 10px;
+    align-content: start;
+  }
+
+  .clip:nth-child(even) {
+    margin-top: 48px;
+  }
+
+  @media (max-width: 1000px) {
+    .clip:nth-child(even) {
+      margin-top: 0;
+    }
+  }
+
+  .frame {
+    position: relative;
+    border: 3px solid var(--iron-lo);
+    box-shadow:
+      0 0 0 3px var(--soot),
+      10px 12px 0 3px rgb(0 0 0 / 0.45);
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+
+  .frame video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background: var(--panel);
+  }
+
+  .frame .call {
+    position: absolute;
+    left: 14px;
+    top: 12px;
+    font-size: clamp(1.1rem, 2.6vw, 1.6rem);
+  }
+
+  .clip p {
+    color: var(--cream-dim);
+  }
+
+  /* Arrows */
+  .arrow-list {
+    list-style: none;
+    padding: 0;
+    margin: 48px 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 28px;
+  }
+
+  .arrow-list li {
+    padding: 24px 22px 26px;
+    display: grid;
+    gap: 8px;
+    align-content: start;
+  }
+
+  .arrow-list p {
+    color: var(--cream-dim);
+    font-size: 1rem;
+  }
+
+  /* The arrow type's head colour (data/arrows/*.tres). */
+  .swatch {
+    width: 56px;
+    height: 10px;
+    background: var(--c, var(--iron));
+    clip-path: polygon(0 35%, 78% 35%, 78% 0, 100% 50%, 78% 100%, 78% 65%, 0 65%);
+    margin-bottom: 6px;
+  }
+
+  .swatch.standard {
+    --c: #d9bf80;
+  }
+  .swatch.fire {
+    --c: #ff731a;
+  }
+  .swatch.heavy {
+    --c: #737380;
+  }
+  .swatch.bodkin {
+    --c: #b3d9f2;
+  }
+  .swatch.split {
+    --c: #80f280;
+  }
+
+  /* Levels */
+  .levels {
+    list-style: none;
+    padding: 0;
+    margin: 48px 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    gap: 28px 48px;
+  }
+
+  .levels li {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+
+  .roman {
+    font: 900 1.6rem/1.2 var(--display);
+    color: var(--blood-hi);
+    text-align: right;
+  }
+
+  .levels p {
+    color: var(--cream-dim);
+    font-size: 1rem;
+  }
+
+  .shots {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
+    gap: 24px;
+    margin-top: 64px;
+  }
+
+  .shots img {
+    width: 100%;
+    height: auto;
+    border: 3px solid var(--iron-lo);
+  }
+
+  /* Final */
+  .final {
+    background: radial-gradient(ellipse at center, rgb(158 31 23 / 0.25), transparent 65%);
+  }
+
+  .final-inner {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .final .lede {
+    margin-inline: auto;
+  }
+
+  .final .ctas {
+    justify-content: center;
+  }
+
+  .foot {
+    border-top: 1px solid var(--line);
+  }
+
+  .foot-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 28px;
+    padding-bottom: 36px;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+</style>
