@@ -7,6 +7,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-11-05
+
+### Fixed
+
+- All text is sharp on HiDPI screens: `tools/build_fonts.py` re-renders both PAGAN fonts at 4x through PAGAN and
+  builds the headings' glyph sheet at 2x (WebP), the hero title at 4x, and the text fonts traced from the 4x render
+  with simplified outlines (straight edges instead of pixel steps). The text fonts' spacing no longer counts the
+  dropped outline (it read letter-spaced). `tools/build_hd_title.py` is folded into it.
+
 ## [0.2.1] - 2026-11-05
 
 ### Fixed

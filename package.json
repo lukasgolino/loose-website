@@ -2,13 +2,13 @@
   "name": "loose-website",
   "private": true,
   "type": "module",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "fonts": ".venv/bin/python tools/build_fonts.py && .venv/bin/python tools/build_hd_title.py"
+    "fonts": ".venv/bin/python tools/build_fonts.py"
   },
   "dependencies": {
     "astro": "7.3.8"

@@ -40,8 +40,6 @@ body {
   background: var(--soot);
   color: var(--cream);
   font: 400 23px/1.45 var(--body);
-  /* The traced PAGAN body font's advances include its outline: a little tighter reads better. */
-  letter-spacing: -0.02em;
   overflow-x: hidden;
 }
 

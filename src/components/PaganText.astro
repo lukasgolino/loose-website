@@ -28,7 +28,7 @@ for (const g of glyphs) {
   if (g.ch === " ") words.push([]);
   else words[words.length - 1].push(g);
 }
-const sheet = `url(${base}fonts/${hd ? "gallows_title" : "gallows_font"}.png)`;
+const sheet = `url(${base}fonts/${hd ? "gallows_title" : "gallows_font"}.webp)`;
 const size = `${em(font.w)} ${em(font.h)}`;
 const space = em(chars[" "]?.[4] ?? 20);
 ---
