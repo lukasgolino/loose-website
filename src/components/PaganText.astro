@@ -1,0 +1,78 @@
+---
+// Text drawn with the game's PAGAN display font (gallows_font: axe-cut, bevelled capitals with a soot outline baked in),
+// straight from its glyph sheet: one sprite per letter, sized in em so it scales with font-size. The text itself is
+// the element's accessible name. Sheet + metrics: tools/build_fonts.py.
+import font from "../lib/gallows_font.json";
+
+interface Props {
+  text: string;
+  tag?: "h1" | "h2" | "h3" | "span" | "p";
+  class?: string;
+}
+const { text, tag: Tag = "span", class: cls = "" } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const chars = font.chars as Record<string, number[]>;
+const L = font.line;
+const em = (px: number) => `${(px / L).toFixed(4)}em`;
+const glyphs = [...text].map((ch) => {
+  const g = chars[ch] ?? chars["?"] ?? chars[" "];
+  return { ch, x: g[0], y: g[1], adv: g[4] };
+});
+const words: (typeof glyphs)[] = [[]];
+for (const g of glyphs) {
+  if (g.ch === " ") words.push([]);
+  else words[words.length - 1].push(g);
+}
+const sheet = `url(${base}fonts/gallows_font.png)`;
+const size = `${em(font.w)} ${em(font.h)}`;
+const space = em(chars[" "]?.[4] ?? 20);
+---
+
+<Tag class={`pagan ${cls}`} aria-label={text} style={`--pg-sheet:${sheet};--pg-size:${size};--pg-space:${space}`}>
+  {
+    words.map((w) => (
+      <span class="pg-word" aria-hidden="true">
+        {w.map((g) => (
+          <span class="pg-ch" style={`width:${em(g.adv)}`}>
+            <i style={`background-position:${em(-g.x)} ${em(-g.y)}`} />
+          </span>
+        ))}
+      </span>
+    ))
+  }
+</Tag>
+
+<style>
+  .pagan {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: var(--pg-space);
+    row-gap: 0.12em;
+    line-height: 1;
+  }
+
+  .pg-word {
+    display: inline-flex;
+    white-space: nowrap;
+  }
+
+  .pg-ch {
+    position: relative;
+    display: inline-block;
+    height: 0.78em;
+    overflow: visible;
+  }
+
+  .pg-ch i {
+    position: absolute;
+    left: 0;
+    top: -0.08em;
+    width: 1em;
+    height: 1em;
+    background-image: var(--pg-sheet);
+    background-size: var(--pg-size);
+    background-repeat: no-repeat;
+    filter: var(--pg-tint, none);
+    pointer-events: none;
+  }
+</style>

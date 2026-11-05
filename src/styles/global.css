@@ -16,8 +16,8 @@
   --blood-hi: #a3291f;
   --blood-lo: #6b140f;
   --line: rgb(235 222 194 / 0.12);
-  --display: "Cinzel", "Times New Roman", serif;
-  --body: "Alegreya Sans", system-ui, sans-serif;
+  --display: "Gallows", "Times New Roman", serif;
+  --body: "Gallows Body", system-ui, sans-serif;
   --wrap: 1200px;
   --gutter: clamp(16px, 4vw, 40px);
   color-scheme: dark;
@@ -39,7 +39,9 @@ body {
   margin: 0;
   background: var(--soot);
   color: var(--cream);
-  font: 400 19px/1.55 var(--body);
+  font: 400 23px/1.45 var(--body);
+  /* The traced PAGAN body font's advances include its outline: a little tighter reads better. */
+  letter-spacing: -0.02em;
   overflow-x: hidden;
 }
 
@@ -62,28 +64,24 @@ a:hover {
   color: var(--cream);
 }
 
+/* Headings are PaganText sprites (the game's bevelled gallows_font glyphs). */
 h1,
 h2,
 h3 {
-  font-family: var(--display);
-  font-weight: 900;
-  line-height: 1.05;
   margin: 0;
-  letter-spacing: 0.01em;
+  font-weight: 400;
+  filter: drop-shadow(0 3px 0 rgb(0 0 0 / 0.55));
 }
 
 h2 {
-  font-size: clamp(2rem, 4.6vw, 3.4rem);
-  background: linear-gradient(var(--brass), var(--brass-lo));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  filter: drop-shadow(0 3px 0 rgb(0 0 0 / 0.6));
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  /* Tarnished brass, like the game's headings. */
+  --pg-tint: sepia(0.75) saturate(1.5) brightness(1.15);
 }
 
 h3 {
-  font-size: 1.45rem;
-  color: var(--brass);
+  font-size: 2.1rem;
+  --pg-tint: sepia(0.55) saturate(1.3) brightness(1.2);
 }
 
 p {
@@ -104,14 +102,14 @@ section {
 .lede {
   max-width: 62ch;
   color: var(--cream-dim);
-  font-size: 1.15rem;
+  font-size: 1.4rem;
   margin-top: 18px;
 }
 
 /* A small label over a heading: a torn banner strip. */
 .ribbon {
   display: inline-block;
-  font: 700 0.85rem/1 var(--display);
+  font: 400 0.85rem/1 var(--display);
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--cream);
@@ -138,7 +136,7 @@ section {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font: 900 1.05rem/1 var(--display);
+  font: 400 1.05rem/1 var(--display);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--cream);
@@ -163,7 +161,7 @@ a.btn:hover,
 
 /* The game's callouts: Cinzel capitals, brass with a soot outline. */
 .call {
-  font: 900 1.1rem/1 var(--display);
+  font: 400 1.1rem/1 var(--display);
   letter-spacing: 0.06em;
   color: var(--brass);
   -webkit-text-stroke: 1px var(--soot);

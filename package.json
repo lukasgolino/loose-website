@@ -2,16 +2,15 @@
   "name": "loose-website",
   "private": true,
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "fonts": ".venv/bin/python tools/build_fonts.py"
   },
   "dependencies": {
-    "@fontsource/alegreya-sans": "5.3.0",
-    "@fontsource/cinzel": "5.3.0",
     "astro": "7.3.8"
   },
   "devDependencies": {

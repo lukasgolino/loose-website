@@ -1,6 +1,7 @@
 ---
 import fs from "node:fs";
 import Base from "../layouts/Base.astro";
+import PaganText from "../components/PaganText.astro";
 import { ARROWS, CLIPS, HERO_CLIP, KILN_URL, LEVELS, PAGAN_URL, SEGAN_URL, STEAM_URL } from "../lib/data";
 
 const base = import.meta.env.BASE_URL;
@@ -27,7 +28,7 @@ const shots = fs.existsSync("public/img/shots")
     }
     <div class="hero-shade"></div>
     <nav class="nav wrap" aria-label="Main">
-      <a class="brand" href={base}>LOOSE!</a>
+      <a class="brand" href={base}><PaganText text="LOOSE!" /></a>
       <div class="links">
         <a href="#moments">Moments</a>
         <a href="#arrows">Arrows</a>
@@ -36,7 +37,7 @@ const shots = fs.existsSync("public/img/shots")
     </nav>
     <div class="hero-inner wrap">
       <p class="ribbon">A siege game</p>
-      <h1>LOOSE!</h1>
+      <PaganText tag="h1" text="LOOSE!" />
       <p class="tag">You are the arrow.</p>
       <p class="lede">
         A goofy medieval army is besieging your castle. An archer on the wall looses you and you fly yourself in: dive for
@@ -61,17 +62,17 @@ const shots = fs.existsSync("public/img/shots")
       <div class="wrap grid3">
         <article class="reveal">
           <p class="num">I</p>
-          <h3>Flying feels good</h3>
+          <PaganText tag="h3" text="Flying feels good" />
           <p>Momentum, speed from the dive, a stall when you climb too long. Steer with the mouse or a stick, slow time with focus.</p>
         </article>
         <article class="reveal" style="--d:100ms">
           <p class="num">II</p>
-          <h3>Hits are a show</h3>
+          <PaganText tag="h3" text="Hits are a show" />
           <p>Lock on and the kill cam drops the world to a crawl. Helmets ring, shields fly off, men ragdoll into their friends.</p>
         </article>
         <article class="reveal" style="--d:200ms">
           <p class="num">III</p>
-          <h3>The world reacts</h3>
+          <PaganText tag="h3" text="The world reacts" />
           <p>Kegs, hay, oil, bells, drawbridges, beehives, siege engines. One reaction is enough. Chains are the jackpot.</p>
         </article>
       </div>
@@ -82,7 +83,7 @@ const shots = fs.existsSync("public/img/shots")
         <section id="moments" class="moments">
           <div class="wrap">
             <span class="ribbon">Moments</span>
-            <h2>Every shot a story</h2>
+            <PaganText tag="h2" text="Every shot a story" />
             <p class="lede">Real footage from the game. The soldiers are very committed and not very good at moving.</p>
             <div class="clip-grid">
               {clips.map((c, i) => (
@@ -94,7 +95,7 @@ const shots = fs.existsSync("public/img/shots")
                     </video>
                     <span class="call">{c.call}</span>
                   </div>
-                  <h3>{c.title}</h3>
+                  <PaganText tag="h3" text={c.title} />
                   <p>{c.blurb}</p>
                 </article>
               ))}
@@ -107,14 +108,14 @@ const shots = fs.existsSync("public/img/shots")
     <section id="arrows" class="arrows">
       <div class="wrap">
         <span class="ribbon">The quiver</span>
-        <h2>Five arrows, one wall</h2>
+        <PaganText tag="h2" text="Five arrows, one wall" />
         <p class="lede">Each archer on the wall carries one kind. Win levels to arm more of them.</p>
         <ul class="arrow-list">
           {
             ARROWS.map((a, i) => (
               <li class="board reveal" style={`--d:${i * 70}ms`}>
                 <span class={`swatch ${a.id}`} aria-hidden="true"></span>
-                <h3>{a.name}</h3>
+                <PaganText tag="h3" text={a.name} />
                 <p>{a.text}</p>
               </li>
             ))
@@ -126,7 +127,7 @@ const shots = fs.existsSync("public/img/shots")
     <section id="siege" class="siege">
       <div class="wrap">
         <span class="ribbon">The siege</span>
-        <h2>Eight levels and an endless siege</h2>
+        <PaganText tag="h2" text="Eight levels and an endless siege" />
         <p class="lede">
           Each one adds a new trick: shieldbearers, ladder crews, a covered ram, trebuchets, a siege tower, night, snow,
           and finally the General. Then Endless Siege: they just keep coming. A Training Yard of straw volunteers comes first.
@@ -137,7 +138,7 @@ const shots = fs.existsSync("public/img/shots")
               <li class="reveal" style={`--d:${(i % 4) * 70}ms`}>
                 <span class="roman">{l.n}</span>
                 <div>
-                  <h3>{l.title}</h3>
+                  <PaganText tag="h3" text={l.title} />
                   <p>{l.idea}</p>
                 </div>
               </li>
@@ -159,7 +160,7 @@ const shots = fs.existsSync("public/img/shots")
     <section class="made">
       <div class="wrap">
         <span class="ribbon">Made with our own tools</span>
-        <h2>Built from text</h2>
+        <PaganText tag="h2" text="Built from text" />
         <p class="lede">
           The soldiers, horses, siege engines, world and effects are modelled in <a href={KILN_URL}>KILN</a>, the score and
           every sound are written in <a href={SEGAN_URL}>SEGAN</a>, and the fonts and UI art are drawn in
@@ -170,7 +171,7 @@ const shots = fs.existsSync("public/img/shots")
 
     <section class="final">
       <div class="wrap final-inner">
-        <h2>Ready. Draw. Loose!</h2>
+        <PaganText tag="h2" text="Ready. Draw. Loose!" />
         <p class="lede">LOOSE! is coming soon to Steam for PC.</p>
         <div class="ctas">
           {
@@ -232,7 +233,7 @@ const shots = fs.existsSync("public/img/shots")
   }
 
   .brand {
-    font: 900 1.6rem/1 var(--display);
+    font-size: 2.4rem;
     color: var(--brass);
     text-decoration: none;
   }
@@ -243,7 +244,7 @@ const shots = fs.existsSync("public/img/shots")
   }
 
   .links a {
-    font: 700 0.85rem/1 var(--display);
+    font: 400 0.85rem/1 var(--display);
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--cream);
@@ -261,18 +262,13 @@ const shots = fs.existsSync("public/img/shots")
     padding-bottom: 72px;
   }
 
-  h1 {
-    font-size: clamp(4.5rem, 15vw, 11rem);
-    line-height: 0.9;
-    background: linear-gradient(#fff6dc, var(--brass) 40%, var(--brass-lo));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    filter: drop-shadow(0 6px 0 rgb(0 0 0 / 0.65));
+  .hero-inner :global(h1) {
+    font-size: clamp(6rem, 19vw, 14rem);
+    margin-left: -0.04em;
   }
 
   .tag {
-    font: 900 clamp(1.4rem, 3.4vw, 2.3rem)/1.1 var(--display);
+    font: 400 clamp(1.4rem, 3.4vw, 2.3rem)/1.1 var(--display);
     color: var(--cream);
     margin-top: 10px;
   }
@@ -317,7 +313,7 @@ const shots = fs.existsSync("public/img/shots")
   }
 
   .num {
-    font: 900 0.95rem/1 var(--display);
+    font: 400 1.3rem/1 var(--display);
     color: var(--blood-hi);
     letter-spacing: 0.2em;
   }
@@ -395,9 +391,13 @@ const shots = fs.existsSync("public/img/shots")
     align-content: start;
   }
 
+  .arrow-list :global(h3) {
+    font-size: 1.7rem;
+  }
+
   .arrow-list p {
     color: var(--cream-dim);
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   /* The arrow type's head colour (data/arrows/*.tres). */
@@ -443,14 +443,14 @@ const shots = fs.existsSync("public/img/shots")
   }
 
   .roman {
-    font: 900 1.6rem/1.2 var(--display);
+    font: 400 1.6rem/1.2 var(--display);
     color: var(--blood-hi);
     text-align: right;
   }
 
   .levels p {
     color: var(--cream-dim);
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   .shots {

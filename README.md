@@ -14,6 +14,8 @@ npm run check      # astro check (types)
 - Clips: `public/video/<id>.mp4|.webm|.jpg` (muted loops, a couple of MB each). A clip shows only once its mp4 exists.
   Record in the game repo offscreen (`tools/capture.sh <dir> <frames> -- <demo args>`, e.g. `--ragdoll-demo=bowl`,
   `--ragdoll-demo=bridge --level=0`, `--level=4 --autopilot`), then encode:
-  `.venv/bin/python tools/encode_clip.py <dir> <id> --from N --to N [--crop 1280:540:0:80]`
+  `.venv/bin/python tools/encode_clip.py <dir> <id> --from N --to N [--crop 1280:500:0:112]`
   (`python3 -m venv .venv && .venv/bin/pip install -r tools/requirements.txt`).
+- Fonts: the game's PAGAN `gallows` fonts. `npm run fonts` rebuilds `public/fonts/` and `src/lib/gallows_font.json`
+  from `../loose/assets/generated/fonts` (headings: the glyph sheet via `PaganText`; text: traced woff2). Commit the output.
 - Stills: JPGs in `public/img/shots/` appear under the level list; `public/img/og.jpg` is the share image.
