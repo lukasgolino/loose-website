@@ -2,7 +2,7 @@
 // both together.
 
 export const STEAM_URL = ""; // Steam store page, once it exists ("" = "coming soon")
-export const KILN_URL = "https://lukasgolino.com/kiln-website/";
+export const KILN_URL = "https://kiln3d.dev/";
 export const SEGAN_URL = "https://segan.top";
 export const PAGAN_URL = "https://pagan.top";
 

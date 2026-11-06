@@ -7,6 +7,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-06
+
+### Changed
+
+- The site moves to its own domain, https://loosegame.com/ (it was https://lukasgolino.com/loose-website/, which now
+  redirects), with an `og:url` tag. The KILN link points at https://kiln3d.dev/
+  ([#2](https://github.com/lukasgolino/loose-website/issues/2)).
+
+### Added
+
+- `sitemap.xml` and `robots.txt`, generated from the pages and the site URL
+  ([#1](https://github.com/lukasgolino/loose-website/issues/1)).
+- Cloudflare Web Analytics beacon, production builds only
+  ([#3](https://github.com/lukasgolino/loose-website/issues/3)).
+- A check on every push (`astro check`, build, and `tools/check-dist.mjs`: the sitemap lists exactly the built pages,
+  robots.txt points to it, every page loads the beacon), run by deploys too, and a notes-only GitHub release per
+  `vX.Y.Z` tag ([#4](https://github.com/lukasgolino/loose-website/issues/4)).
+
 ## [0.2.2] - 2026-11-05
 
 ### Fixed

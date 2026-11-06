@@ -1,11 +1,11 @@
 # LOOSE! website
 
-One-page static Astro site for LOOSE! (game repo: `../loose`). No backend. Live at https://lukasgolino.com/loose-website/
+One-page static Astro site for LOOSE! (game repo: `../loose`). No backend. Live at https://loosegame.com/
 (GitHub Pages, deployed by `.github/workflows/deploy.yml` on every push to `main`).
 
 ```sh
 npm ci
-npm run dev        # http://localhost:4321/loose-website/
+npm run dev        # http://localhost:4321/
 npm run build      # -> dist/
 npm run check      # astro check (types)
 ```
