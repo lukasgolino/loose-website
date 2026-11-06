@@ -1,0 +1,9 @@
+# LOOSE!
+
+> LOOSE! is a comedic medieval siege game for PC (Windows) where you are the arrow. You fly yourself into the enemy: eye shots, kill cams, ragdolls, powder kegs, drawbridges, fire and chain reactions, across eight levels with five kinds of arrow. Coming soon to Steam. Made by Lukas Golino in Godot 4, with art and audio built by PAGAN, SEGAN and KILN.
+
+## Links
+
+- [Home](https://loosegame.com/): trailer clips, arrows, levels, screenshots
+- Developer: Lukas Golino (https://lukasgolino.com/)
+- Tools it is built with: PAGAN (pixel art, https://pagan.top/), SEGAN (audio, https://segan.top/) and KILN (3D models, https://kiln3d.dev/)

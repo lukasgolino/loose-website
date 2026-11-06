@@ -7,6 +7,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-11-06
+
+### Added
+
+- A standard icon set: `favicon.ico` (16/32/48 px), a 96 px icon, a 180 px apple-touch icon and `site.webmanifest`
+  with 192/512 px and maskable icons, so search results, tabs, bookmarks and home-screen shortcuts all show the
+  icon ([#9](https://github.com/lukasgolino/loose-website/issues/9)).
+- schema.org structured data (JSON-LD) on the home page, an `llms.txt` summary for AI assistants, and robots.txt
+  content signals allowing search and AI use; the home page title names what the site is for
+  ([#10](https://github.com/lukasgolino/loose-website/issues/10)).
+
+### Changed
+
+- Tool dependency updates (`tools/requirements.txt`).
+
 ## [0.3.0] - 2026-11-06
 
 ### Changed
