@@ -14,6 +14,49 @@ const fontFace = ["gallows_font:Gallows", "gallows_body:Gallows Body"]
   .map((f) => f.split(":"))
   .map(([file, fam]) => `@font-face{font-family:"${fam}";src:url(${base}fonts/${file}.woff2) format("woff2");font-display:swap;}`)
   .join("");
+// Structured data (schema.org) for search engines and AI assistants.
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "LOOSE!",
+      "url": "https://loosegame.com/"
+    },
+    {
+      "@type": "VideoGame",
+      "name": "LOOSE!",
+      "url": "https://loosegame.com/",
+      "description": "A comedic medieval siege game where you are the arrow. Fly yourself into the enemy: eye shots, kill cams, ragdolls, powder kegs and chain reactions.",
+      "genre": [
+        "Action",
+        "Comedy",
+        "Physics"
+      ],
+      "gamePlatform": "PC",
+      "applicationCategory": "Game",
+      "image": "https://loosegame.com/img/og.jpg",
+      "author": {
+        "@id": "https://lukasgolino.com/#me"
+      },
+      "creator": {
+        "@id": "https://lukasgolino.com/#me"
+      },
+      "operatingSystem": "Windows",
+      "playMode": "SinglePlayer",
+      "keywords": "siege game, arrow game, physics game, ragdoll, medieval, indie game, Godot"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://lukasgolino.com/#me",
+      "name": "Lukas Golino",
+      "url": "https://lukasgolino.com/",
+      "sameAs": [
+        "https://github.com/lukasgolino"
+      ]
+    }
+  ]
+};
 ---
 
 <!doctype html>
@@ -24,7 +67,10 @@ const fontFace = ["gallows_font:Gallows", "gallows_body:Gallows Body"]
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#120d0a" />
-    <link rel="icon" type="image/png" href={`${base}favicon.png`} />
+    <link rel="icon" type="image/png" sizes="96x96" href={`${base}favicon-96x96.png`} />
+    <link rel="shortcut icon" href={`${base}favicon.ico`} />
+    <link rel="apple-touch-icon" sizes="180x180" href={`${base}apple-touch-icon.png`} />
+    <link rel="manifest" href={`${base}site.webmanifest`} />
     <link rel="canonical" href={canonical} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
@@ -36,6 +82,7 @@ const fontFace = ["gallows_font:Gallows", "gallows_body:Gallows Body"]
     <link rel="preload" href={`${base}fonts/gallows_font.webp`} as="image" />
     <link rel="preload" href={`${base}fonts/gallows_title.webp`} as="image" />
     <style is:inline set:html={fontFace}></style>
+    {<script type="application/ld+json" set:html={JSON.stringify(ld)} />}
   </head>
   <body>
     <slot />
