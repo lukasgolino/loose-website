@@ -7,6 +7,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-11-09
+
+### Added
+
+- Umami analytics alongside Cloudflare Web Analytics: cookieless, so still no consent banner, and it adds
+  per-visit page journeys (entry page, pages in order, exit), which Cloudflare's aggregate counts can't show.
+  All our sites share one Umami website; the Host filter separates them.
+
 ## [0.4.0] - 2026-11-06
 
 ### Added
