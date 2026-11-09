@@ -7,6 +7,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-11-09
+
+### Added
+
+- Footer link to the privacy notice at lukasgolino.com/privacy.html, which covers the analytics and hosting of all our
+  sites ([lukasgolino.github.io#16](https://github.com/lukasgolino/lukasgolino.github.io/issues/16)).
+
 ## [0.5.0] - 2026-11-09
 
 ### Added
