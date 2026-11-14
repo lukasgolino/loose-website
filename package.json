@@ -11,7 +11,7 @@
     "fonts": ".venv/bin/python tools/build_fonts.py"
   },
   "dependencies": {
-    "astro": "7.3.8"
+    "astro": "7.4.7"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
